@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="PickmeJaeger.Controls.LoginControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PickmeJaeger.Controls" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      d:DesignWidth="380">
+    <Grid>
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Pictures/back.jpg" Stretch="UniformToFill" TileMode="None" ViewportUnits="RelativeToBoundingBox" Viewport="0,0,1,1" />
+        </Grid.Background>
+
+        <Grid Width="380" Height="450" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.RowSpan="2" RenderTransformOrigin="0.495,0.551">
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#66142227" Offset="0.0"/>
+                            <GradientStop Color="#66121212" Offset="0.7"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Button Style="{StaticResource CloseAppStyle}" Click="Button_Click" Margin="0" Background="#FFDDDDDD"/>
+                
+                <StackPanel VerticalAlignment="Center" Width="300">
+                    <Image Source="/Assets/Pictures/Jaeger.png" Width="235" Height="204"/>
+                    <TextBlock Text="{DynamicResource Welcome}"
+                           FontWeight="Light"
+                           FontFamily="Fonts/#CormorantGaramond Regular"
+                           FontSize="22"
+                           Foreground="White" Height="29" Width="192"
+                           />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="loginField"
+                             FontFamily="Fonts/#CormorantGaramond Regular"
+                             FontWeight="Light"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="63,20,0,0"
+                             />
+                        <TextBlock Text="{DynamicResource Login}" 
+                               IsHitTestVisible="False"
+                               Margin="-230,20,-5,0"
+                               FontFamily="Fonts/#CormorantGaramond Regular"
+                               FontWeight="Light"
+                               FontSize="20"
+                               Foreground="White"
+                               Width="235"
+                               Opacity="0.5"
+                               Height="25" HorizontalAlignment="Left">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=loginField}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <iconPacks:PackIconMaterial Kind="AccountBox" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center" 
+                                                Foreground="White" Margin="0,0,0,-20"/>
+                    </StackPanel>
+                    <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <PasswordBox x:Name="passwordField" 
+                             Password="Password"
+                             FontFamily="Fonts/#CormorantGaramond Regular"
+                             FontWeight="Light"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Background="{x:Null}"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="63,0,0,0"
+                             />
+
+                        <iconPacks:PackIconMaterial Kind="Key" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center" 
+                                                Foreground="White"/>
+                    </StackPanel>
+                    
+                    <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+                    <Button Width="100" Height="40" Content="{DynamicResource Enter}" Click="enter_Click" HorizontalAlignment="Left" Margin="60,60,0,0" FontSize="15" FontWeight="Thin"/>
+                    <Button Width="100" Height="40" Content="{DynamicResource Register}" Click="reg_Click"  HorizontalAlignment="Right" Margin="0,-40,60,0" FontSize="15" FontWeight="Thin"/>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

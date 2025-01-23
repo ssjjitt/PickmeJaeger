@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="PickmeJaeger.ControlsForUser.MenuUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PickmeJaeger.ControlsForUser"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="950"
+             HorizontalAlignment="Center"
+             x:Name="UserMenu">
+    <Grid>
+        <Border Grid.Column="0" Style="{StaticResource BackgroundStyleControl}">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/lenovo/AppData/Local/Microsoft/VisualStudio/17.0_db2d7193/Designer/Cache/11277884770x86DD/Assets/Pictures/back.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+            <Grid x:Name="MainGridMenu" Width="950">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource TitanSteak}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/steak3.png" Margin="10,0,10,0" MouseDown="Image_MouseDown"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="3" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource WallDinners}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/dinner.png" Margin="10,40,10,10" MouseDown="Image_MouseDown_1"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="5" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource Salad}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/salad.png" Margin="10,40,10,10" MouseDown="Image_MouseDown_2"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="1" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource Leviathan}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/dinner1.png" Margin="0 17 0 0" MouseDown="Image_MouseDown_3"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="3" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource Bowl}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/bowl.png" Margin="0 17 0 0" MouseDown="Image_MouseDown_4"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="5" Background="#660C0C0C">
+                    <TextBlock Text="{DynamicResource Coctail}" Style="{StaticResource BlackText}" VerticalAlignment="Top" Margin="0 2 0 0" FontSize="20"/>
+                    <Image Source="/Assets/Food/coctail3.png" Margin="0 17 0 0" MouseDown="Image_MouseDown_5"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

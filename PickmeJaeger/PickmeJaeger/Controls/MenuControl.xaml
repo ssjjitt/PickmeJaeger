@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="PickmeJaeger.Controls.MenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PickmeJaeger.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="950"
+             HorizontalAlignment="Center"
+             x:Name="Menu"
+             IsVisibleChanged="Menu_IsVisibleChanged">
+
+    <UserControl.Resources>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#99272727"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="#99272727"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#99272727"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Border Grid.Column="0" Style="{StaticResource BackgroundStyleControl}">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/lenovo/AppData/Local/Microsoft/VisualStudio/17.0_db2d7193/Designer/Cache/11277884770x86DD/Assets/Pictures/back.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+            
+            <Grid x:Name="MainGrid" Width="950">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.9*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" Background="#99272727" x:Name="DGridMenu" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Margin="0,5,0,0">
+
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="#99272727"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#FFA7BBF9"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Resources>
+
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="{DynamicResource Picture}" Width="150">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Height="150" Width="150" Source="{Binding DishImage}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="{DynamicResource Dish}" Binding="{Binding DishName}" Width="150"/>
+                                <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="{DynamicResource Type}" Binding="{Binding DishType}" Width="100"/>
+                                <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="{DynamicResource Price}" Binding="{Binding DishPrice}" Width="100"/>
+                                <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="{DynamicResource Weight}" Binding="{Binding DishWeight}" Width="100"/>
+                                <DataGridTextColumn ElementStyle="{StaticResource WrapText}" Header="{DynamicResource Desc}" Binding="{Binding DishDescription}" Width="283"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Style="{StaticResource UsualButton}" Width="90" Height="30" Margin="680,13,0,10" Content="{DynamicResource Add}" Grid.Row="1" HorizontalAlignment="Left" x:Name="BtnAdd" Click="BtnAdd_Click"/>
+                        <Button Style="{StaticResource UsualButton}" Width="90" Height="30" Margin="791,13,0,10" Content="{DynamicResource Delete}" Grid.Row="1" HorizontalAlignment="Left" x:Name="BtnDelete" Click="BtnDelete_Click"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

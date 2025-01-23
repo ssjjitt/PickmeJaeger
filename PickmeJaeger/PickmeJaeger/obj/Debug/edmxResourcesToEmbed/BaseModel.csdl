@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OishiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MENU">
+    <Key>
+      <PropertyRef Name="DishId" />
+    </Key>
+    <Property Name="DishId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DishPrice" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DishWeight" Type="Int32" />
+    <Property Name="DishDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DishType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DishImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ORDERS">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserOID" Type="Int32" />
+    <Property Name="BookingDatetime" Type="DateTime" Precision="0" />
+    <Property Name="TableOID" Type="Int32" />
+    <Property Name="UserEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Wishes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="OrderStatus" Type="Int32" />
+    <NavigationProperty Name="RESTABLES" Relationship="Self.FK__ORDERS__TableOID__2C3393D0" FromRole="ORDERS" ToRole="RESTABLES" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK__ORDERS__UserOID__2B3F6F97" FromRole="ORDERS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="RESTABLES">
+    <Key>
+      <PropertyRef Name="TableID" />
+    </Key>
+    <Property Name="TableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrdinalNumber" Type="Int16" />
+    <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__TableOID__2C3393D0" FromRole="RESTABLES" ToRole="ORDERS" />
+  </EntityType>
+  <EntityType Name="REVIEWS">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRID" Type="Int32" />
+    <Property Name="ReviewText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ReviewImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK__REVIEWS__UserRID__33D4B598" FromRole="REVIEWS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserLogin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserAffiliation" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__UserOID__2B3F6F97" FromRole="USERS" ToRole="ORDERS" />
+    <NavigationProperty Name="REVIEWS" Relationship="Self.FK__REVIEWS__UserRID__33D4B598" FromRole="USERS" ToRole="REVIEWS" />
+  </EntityType>
+  <Association Name="FK__ORDERS__TableOID__2C3393D0">
+    <End Role="RESTABLES" Type="Self.RESTABLES" Multiplicity="0..1" />
+    <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RESTABLES">
+        <PropertyRef Name="TableID" />
+      </Principal>
+      <Dependent Role="ORDERS">
+        <PropertyRef Name="TableOID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ORDERS__UserOID__2B3F6F97">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+    <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ORDERS">
+        <PropertyRef Name="UserOID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__REVIEWS__UserRID__33D4B598">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+    <End Role="REVIEWS" Type="Self.REVIEWS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="REVIEWS">
+        <PropertyRef Name="UserRID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OishiEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MENU" EntityType="Self.MENU" />
+    <EntitySet Name="ORDERS" EntityType="Self.ORDERS" />
+    <EntitySet Name="RESTABLES" EntityType="Self.RESTABLES" />
+    <EntitySet Name="REVIEWS" EntityType="Self.REVIEWS" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" />
+    <AssociationSet Name="FK__ORDERS__TableOID__2C3393D0" Association="Self.FK__ORDERS__TableOID__2C3393D0">
+      <End Role="RESTABLES" EntitySet="RESTABLES" />
+      <End Role="ORDERS" EntitySet="ORDERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ORDERS__UserOID__2B3F6F97" Association="Self.FK__ORDERS__UserOID__2B3F6F97">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="ORDERS" EntitySet="ORDERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK__REVIEWS__UserRID__33D4B598" Association="Self.FK__REVIEWS__UserRID__33D4B598">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="REVIEWS" EntitySet="REVIEWS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

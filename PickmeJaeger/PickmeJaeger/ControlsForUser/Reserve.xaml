@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="PickmeJaeger.ControlsForUser.Reserve"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PickmeJaeger.ControlsForUser"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="950"
+             HorizontalAlignment="Center"
+             x:Name="ReserveControl">
+    <Grid>
+        <Border Grid.Column="0" Style="{StaticResource BackgroundStyleControl}">
+            <Grid x:Name="GridReserve" Width="920" Margin="0,65,0,0">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" >
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource BlackText}" Text="{DynamicResource availabletab}" FontSize="22"/>
+                        <Image Source="/Assets/Tables/1.png" Margin="10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-415,-700,0" Content="1" Click="Button_Click"/>
+                        <Button Style="{StaticResource round}" Margin="0,-570,212,0" Content="2" Click="Button_Click_1"/>
+                        <Image Source="/Assets/Tables/2.png" Margin="10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-465,299,0" Content="5" Click="Button_Click_2"/>
+                        <Button Style="{StaticResource round}" Margin="0,-480,-400,0" Content="4" Click="Button_Click_3"/>
+                        <Button Style="{StaticResource round}" Margin="0,-620,-640,0" Content="3" Click="Button_Click_4"/>
+                        <Image Source="/Assets/Tables/3.png" Margin="10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-640,540,0" Content="6" Click="Button_Click_5"/>
+                        <Button Style="{StaticResource round}" Margin="0,-520,185,0" Content="7" Click="Button_Click_6"/>
+                        <Button Style="{StaticResource round}" Margin="0,-625,-260,0" Content="8" Click="Button_Click_7"/>
+                        <Button Style="{StaticResource round}" Margin="0,-600,-730,0" Content="9" Click="Button_Click_8"/>
+                        <Image Source="/Assets/Tables/4.png" Margin="10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-515,525,0" Content="10" Click="Button_Click_9"/>
+                        <Button Style="{StaticResource round}" Margin="0,-421,-25,0" Content="11" Click="Button_Click_10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-533,-560,0" Content="12" Click="Button_Click_11"/>
+                        <Image Source="/Assets/Tables/5.png" Margin="10"/>
+                        <Button Style="{StaticResource round}" Margin="0,-160,400,0" Content="13" Click="Button_Click_12"/>
+                        <Button Style="{StaticResource round}" Margin="0,-370,309,0" Content="14" Click="Button_Click_13"/>
+                        <Button Style="{StaticResource round}" Margin="0,-228,-675,0" Content="15" Click="Button_Click_14"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

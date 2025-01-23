@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище OishiModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DishName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DishPrice" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="DishWeight" Type="int" />
+          <Property Name="DishDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="DishType" Type="nvarchar" MaxLength="20" />
+          <Property Name="DishImage" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserOID" Type="int" />
+          <Property Name="BookingDatetime" Type="smalldatetime" />
+          <Property Name="TableOID" Type="int" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="30" />
+          <Property Name="Wishes" Type="nvarchar" MaxLength="200" />
+          <Property Name="OrderStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="RESTABLES">
+          <Key>
+            <PropertyRef Name="TableID" />
+          </Key>
+          <Property Name="TableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdinalNumber" Type="smallint" />
+        </EntityType>
+        <EntityType Name="REVIEWS">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRID" Type="int" />
+          <Property Name="ReviewText" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReviewImage" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserAffiliation" Type="nvarchar" MaxLength="13" />
+        </EntityType>
+        <Association Name="FK__ORDERS__TableOID__2C3393D0">
+          <End Role="RESTABLES" Type="Self.RESTABLES" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTABLES">
+              <PropertyRef Name="TableID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="TableOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__UserOID__2B3F6F97">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="UserOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__REVIEWS__UserRID__33D4B598">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="REVIEWS" Type="Self.REVIEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="REVIEWS">
+              <PropertyRef Name="UserRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище OishiModelContainer">
+          <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESTABLES" EntityType="Self.RESTABLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REVIEWS" EntityType="Self.REVIEWS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ORDERS__TableOID__2C3393D0" Association="Self.FK__ORDERS__TableOID__2C3393D0">
+            <End Role="RESTABLES" EntitySet="RESTABLES" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__UserOID__2B3F6F97" Association="Self.FK__ORDERS__UserOID__2B3F6F97">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__REVIEWS__UserRID__33D4B598" Association="Self.FK__REVIEWS__UserRID__33D4B598">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="REVIEWS" EntitySet="REVIEWS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OishiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DishName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DishPrice" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="DishWeight" Type="Int32" />
+          <Property Name="DishDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DishType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DishImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserOID" Type="Int32" />
+          <Property Name="BookingDatetime" Type="DateTime" Precision="0" />
+          <Property Name="TableOID" Type="Int32" />
+          <Property Name="UserEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Wishes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <NavigationProperty Name="RESTABLES" Relationship="Self.FK__ORDERS__TableOID__2C3393D0" FromRole="ORDERS" ToRole="RESTABLES" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__ORDERS__UserOID__2B3F6F97" FromRole="ORDERS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="RESTABLES">
+          <Key>
+            <PropertyRef Name="TableID" />
+          </Key>
+          <Property Name="TableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdinalNumber" Type="Int16" />
+          <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__TableOID__2C3393D0" FromRole="RESTABLES" ToRole="ORDERS" />
+        </EntityType>
+        <EntityType Name="REVIEWS">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRID" Type="Int32" />
+          <Property Name="ReviewText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__REVIEWS__UserRID__33D4B598" FromRole="REVIEWS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserLogin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserAffiliation" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ORDERS" Relationship="Self.FK__ORDERS__UserOID__2B3F6F97" FromRole="USERS" ToRole="ORDERS" />
+          <NavigationProperty Name="REVIEWS" Relationship="Self.FK__REVIEWS__UserRID__33D4B598" FromRole="USERS" ToRole="REVIEWS" />
+        </EntityType>
+        <Association Name="FK__ORDERS__TableOID__2C3393D0">
+          <End Role="RESTABLES" Type="Self.RESTABLES" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESTABLES">
+              <PropertyRef Name="TableID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="TableOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ORDERS__UserOID__2B3F6F97">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="ORDERS" Type="Self.ORDERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ORDERS">
+              <PropertyRef Name="UserOID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__REVIEWS__UserRID__33D4B598">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="REVIEWS" Type="Self.REVIEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="REVIEWS">
+              <PropertyRef Name="UserRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OishiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MENU" EntityType="Self.MENU" />
+          <EntitySet Name="ORDERS" EntityType="Self.ORDERS" />
+          <EntitySet Name="RESTABLES" EntityType="Self.RESTABLES" />
+          <EntitySet Name="REVIEWS" EntityType="Self.REVIEWS" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <AssociationSet Name="FK__ORDERS__TableOID__2C3393D0" Association="Self.FK__ORDERS__TableOID__2C3393D0">
+            <End Role="RESTABLES" EntitySet="RESTABLES" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ORDERS__UserOID__2B3F6F97" Association="Self.FK__ORDERS__UserOID__2B3F6F97">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="ORDERS" EntitySet="ORDERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__REVIEWS__UserRID__33D4B598" Association="Self.FK__REVIEWS__UserRID__33D4B598">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="REVIEWS" EntitySet="REVIEWS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище OishiModelContainer" CdmEntityContainer="OishiEntities">
+          <EntitySetMapping Name="MENU">
+            <EntityTypeMapping TypeName="OishiModel.MENU">
+              <MappingFragment StoreEntitySet="MENU">
+                <ScalarProperty Name="DishId" ColumnName="DishId" />
+                <ScalarProperty Name="DishName" ColumnName="DishName" />
+                <ScalarProperty Name="DishPrice" ColumnName="DishPrice" />
+                <ScalarProperty Name="DishWeight" ColumnName="DishWeight" />
+                <ScalarProperty Name="DishDescription" ColumnName="DishDescription" />
+                <ScalarProperty Name="DishType" ColumnName="DishType" />
+                <ScalarProperty Name="DishImage" ColumnName="DishImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="OishiModel.ORDERS">
+              <MappingFragment StoreEntitySet="ORDERS">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserOID" ColumnName="UserOID" />
+                <ScalarProperty Name="BookingDatetime" ColumnName="BookingDatetime" />
+                <ScalarProperty Name="TableOID" ColumnName="TableOID" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Wishes" ColumnName="Wishes" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESTABLES">
+            <EntityTypeMapping TypeName="OishiModel.RESTABLES">
+              <MappingFragment StoreEntitySet="RESTABLES">
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+                <ScalarProperty Name="OrdinalNumber" ColumnName="OrdinalNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REVIEWS">
+            <EntityTypeMapping TypeName="OishiModel.REVIEWS">
+              <MappingFragment StoreEntitySet="REVIEWS">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="UserRID" ColumnName="UserRID" />
+                <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+                <ScalarProperty Name="ReviewImage" ColumnName="ReviewImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OishiModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="OishiModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserAffiliation" ColumnName="UserAffiliation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="PickmeJaeger.ControlsForUser.Info"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PickmeJaeger.ControlsForUser" xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="950"
+             HorizontalAlignment="Center"
+             x:Name="InfoControl">
+    <Grid>
+        <Border Grid.Column="0" Style="{StaticResource BackgroundStyleControl}">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/lenovo/AppData/Local/Microsoft/VisualStudio/17.0_db2d7193/Designer/Cache/11277884770x86DD/Assets/Pictures/back.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+            <Grid x:Name="GridInfo" Width="950">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom">
+                        <TextBlock Text="{DynamicResource PickmeJaegerRes}" FontSize="22" VerticalAlignment="Bottom" Margin="0,0,9.911,-8" Foreground="White"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <TextBlock Style="{StaticResource BlackText}" Text="{DynamicResource BigText}" 
+                                   FontSize="12" Margin="0,0,-0.089,-0.178" Height="138" TextAlignment="Left" Foreground="White"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="2"/>
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="127*"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.RowSpan="3">
+                        <!-- <m:Map x:Name="myMap" Mode="Road" Center="53.890772, 27.572584" ZoomLevel="17" Width="288" Height="210" HorizontalAlignment="Left" Margin="10,30,0,20" /> -->
+                        <Image x:Name="image" Width="250" HorizontalAlignment="Left" Margin="195,5,0,5" Source="/Assets/Pictures/Jaeger.png" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource OurContacts}" VerticalAlignment="Bottom" FontSize="14" Margin="0,0,305,180" HorizontalAlignment="Right" Foreground="White"  />
+                        <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="{DynamicResource Contacts}" Width="149" HorizontalAlignment="Right" Margin="0,0,258,67" Padding="5" 
+                                   VerticalAlignment="Bottom" Height="78" FontSize="12" Style="{StaticResource BlackText}" Foreground="White"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                    <TextBlock Text="{DynamicResource Comments}" Margin="15,5,0,0" FontSize="18" Foreground="White"/>
+                    <Button x:Name="add" Content="{DynamicResource Rev}" Style="{StaticResource UsualButton}" Width="130" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,21.743,0" Click="add_Click"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,40,0,0">
+                        <ItemsControl x:Name="nood" Background="Transparent" Foreground="White">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5"
+                                            Padding="10">
+                                        <StackPanel Background="Transparent" Orientation="Horizontal" Height="150" Margin="5" VerticalAlignment="Top">
+                                            <Image Source="{Binding ReviewImage}" Width="150" Height="150" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                            <TextBlock Text="{Binding ReviewText}" FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Left" FontSize="16" Style="{StaticResource WrapText}"  Width="680" VerticalAlignment="Center" Margin="10,0" Height="150"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

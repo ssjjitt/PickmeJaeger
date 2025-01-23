@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="PickmeJaeger.ControlsForUser.SearchMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PickmeJaeger.ControlsForUser" xmlns:viewmodel="clr-namespace:PickmeJaeger.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AppViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="950"
+             HorizontalAlignment="Center"
+             x:Name="Search">
+    <Grid>
+        <Border Grid.Column="0" Style="{StaticResource BackgroundStyleControl}">
+            <Border.Background>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/lenovo/AppData/Local/Microsoft/VisualStudio/17.0_db2d7193/Designer/Cache/11277884770x86DD/Assets/Pictures/back.jpg"/>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Border.Background>
+
+            <Grid x:Name="GridMenu" Width="950">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="76*"/>
+                    <RowDefinition Height="293*"/>
+                    <RowDefinition Height="30*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="43*"/>
+                    <ColumnDefinition Width="355*"/>
+                    <ColumnDefinition Width="509*"/>
+                    <ColumnDefinition Width="43*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Заголовок -->
+                <Grid Grid.Row="0" Grid.ColumnSpan="4" Margin="13,0,36,0">
+                    <TextBlock Text="{DynamicResource Search}" Style="{StaticResource BlackText}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0" FontSize="25"/>
+                </Grid>
+
+                <!-- Панель фильтрации -->
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="0,0,0,1">
+                    <!-- Тип блюда -->
+
+                    <!-- Цена от/до -->
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5">
+                        <TextBlock Text="Цена от:" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0"/>
+                        <TextBox Name="PriceFromTextBox" Width="70" Height="25" Margin="5" Background="{x:Null}" BorderBrush="#FFC8D6FF" Text="{Binding PriceFrom, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
+                        <TextBlock Text="до:" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0"/>
+                        <TextBox Name="PriceToTextBox" Width="70" Height="25" Margin="5" Background="{x:Null}" BorderBrush="#FFC8D6FF" Text="{Binding PriceTo, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
+                        <TextBlock Text="Вес от:" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0"/>
+                        <TextBox Name="WeightFromTextBox" Width="70" Height="25" Margin="5" BorderBrush="#FFC8D6FF" Background="{x:Null}" Text="{Binding WeightFrom, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
+                        <TextBlock Text="до:" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0"/>
+                        <TextBox Name="WeightToTextBox" Width="70" Height="25" Margin="5" BorderBrush="#FFC8D6FF" Background="{x:Null}" Text="{Binding WeightTo, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
+
+                        <Button Style="{StaticResource EmptyButton}"  Name="ResetButton" Width="31" Height="30" Margin="10,0,0,0" Click="ResetButton_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Pictures/reload.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                    <Button Content="Применить" x:Name="ApplyButton" Width="90" Height="30" Click="ApplyButton_Click"/>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Orientation="Vertical" Grid.Column="1" Margin="0,0,10,0">
+                    <!-- Панель поиска -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBox Width="300" Height="30" x:Name="SearchTextBox" HorizontalAlignment="Left" Margin="0,0,10,0"/>
+                        <Button Style="{StaticResource EmptyButton}" Width="30" Height="30" Click="SearchButton_Click">
+                            <Button.Background>
+                                <ImageBrush Stretch="Fill" ImageSource="/Assets/Pictures/search.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <ComboBox x:Name="TypeComboBox"
+                        Width="180"
+                        Height="30"
+                        BorderBrush="#FFC8D6FF"
+                        ItemsSource="{Binding DishTypes}"
+                        SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}">
+                        </ComboBox>
+
+                    </StackPanel>
+                </StackPanel>
+
+
+                <!-- Список блюд -->
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,2,0,0" Grid.Column="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl x:Name="MenuItemsControl" Background="Transparent" Width="Auto">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="10" Padding="10" Height="auto">
+                                        <StackPanel Background="Transparent">
+                                            <Image Source="{Binding DishImage}" Width="225" Height="225" Margin="0,0,0,5"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Center" FontSize="14" Style="{StaticResource WrapText}" Text="{Binding DishName}" Width="225" Margin="0,0,0,15"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Left" FontSize="14" Style="{StaticResource BlackText}" Text="{Binding DishType}" Width="225" Margin="0,0,0,3"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Left" FontSize="14" Style="{StaticResource BlackText}" Text="{Binding DishDescription}" Width="225" Height="Auto"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Left" FontSize="14" Style="{StaticResource BlackText}" Text="{Binding DishWeight}" Width="225" Height="Auto"/>
+                                            <TextBlock FontFamily="/Assets/Fonts/#CormorantGaramond Regular" TextAlignment="Left" FontSize="14" Style="{StaticResource BlackText}" Text="{Binding DishPrice}" Width="225" Height="Auto"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Style="{DynamicResource EmptyButton}" Width="50" Height="Auto" Margin="0" Click="PreviousPageButton_Click" IsEnabled="{Binding CanGoPrevious}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Pictures/arrowback.png"/>
+                            </Button.Background>
+                        </Button>
+                        <TextBlock Text="{Binding CurrentPageText}" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="White" FontSize="16" Width="58"/>
+                        <Button Style="{DynamicResource EmptyButton}" Width="50" Height="Auto" Margin="0" Click="NextPageButton_Click" IsEnabled="{Binding CanGoNext}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Assets/Pictures/arrowforward.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
